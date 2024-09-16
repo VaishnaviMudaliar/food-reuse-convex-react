@@ -14,6 +14,7 @@ export const insertFoodItem = mutation(async ({ db }, { userId, itemName, quanti
     const user = await db.get("Users", userId);
 
     if (!user) {
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       throw new Error(`User with ID ${userId} does not exist.`);
     }
 

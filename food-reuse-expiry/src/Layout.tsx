@@ -14,21 +14,17 @@ export function Layout({
         <nav className="container w-full justify-between flex flex-row items-center gap-6">
           <div className="flex items-center gap-6 md:gap-10">
             <a href="/">
-              <h1 className="text-base font-semibold">React Template</h1>
+              <h1 className="text-base font-semibold">Home</h1>
             </a>
             <div className="flex items-center gap-4 text-sm">
-              <GetStartedDialog>
-                <button className="text-muted-foreground transition-colors hover:text-foreground">
-                  Help
-                </button>
-              </GetStartedDialog>
-              <a
-                href="https://docs.convex.dev"
-                className="text-muted-foreground transition-colors hover:text-foreground"
-                target="_blank"
-              >
-                Docs
-              </a>
+            <a href="/">
+              <h1 className="text-base font-semibold">About</h1>
+            </a>
+            </div>
+            <div className="flex items-center gap-4 text-sm">
+            <a href="/">
+              <h1 className="text-base font-semibold">Track Expiry</h1>
+            </a>
             </div>
           </div>
           {menu}
