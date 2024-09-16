@@ -3,6 +3,8 @@ import './welcomPage.css'; // Assuming you have a specific CSS file for this com
 import MealPlanImage from '../assets/meal_plan.png';
 import RecipesImage from '../assets/recipes.png';
 import FoodEntryForm from './EntertheFoodItems';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface WelcomePageProps {
   title: string;
@@ -14,11 +16,7 @@ interface WelcomePageProps {
   signupLink: string;
 }
 
-const handleRecipe = () => {
-  return (
-    <FoodEntryForm userId=''/>
-  )
-}
+
 
 
 const WelcomePage: React.FC<WelcomePageProps> = ({
@@ -30,7 +28,16 @@ const WelcomePage: React.FC<WelcomePageProps> = ({
   loginLink,
   signupLink,
 }) => {
+  const navigate = useNavigate();
+
+  const handleRecipe = () => {
+ 
+    return (
+      navigate('/recipes')
+    )
+  }
   return (
+
     <div className="welcomePage">
       <header className="welcomePage-header">
         {/* <nav className="navbar">
@@ -49,7 +56,7 @@ const WelcomePage: React.FC<WelcomePageProps> = ({
             <h1>{title}</h1>
             <div className='page-buttons'>
             <a className="enter-food-item" href={recipeLink}>
-              <img className  = 'button-image' src={RecipesImage} alt="icon1" />Enter Food Items</a>
+              <img className  = 'button-image' src={RecipesImage} alt="icon1"  onClick={handleRecipe}/>Enter Food Items</a>
             <a className="generate-meal-plans" href={recipeLink}>
               <img  className  = 'button-image' src={MealPlanImage} alt="icon2"/>Generate Meal Plans</a>
             </div>
