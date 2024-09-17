@@ -40,24 +40,38 @@ To set up the project locally, follow these steps:
    ```bash
    git clone https://github.com/VaishnaviMudaliar/food-reuse-convex-react.git
    cd food-reuse-expiry
-2. Install the Convex client and server library
+2. **Install the Convex client and server library**
 To get started, install the convex package which provides a convenient interface for working with Convex from a React app.
 
 Navigate to your app directory and install convex.
+```bash
 npm install convex
 
-3. Set up a Convex dev deployment
+3. **Set up a Convex dev deployment**
 Next, run npx convex dev. This will prompt you to log in with GitHub, create a project, and save your production and deployment URLs.
 
 It will also create a convex/ folder for you to write your backend API functions in. The dev command will then continue running to sync your functions with your dev deployment in the cloud.
-
+```bash
 npx convex dev
 
-4. Start the app
+4. **Start the app**
 Start the app, open http://localhost:5173/ in a browser, and see the list of tasks.
 
 
 Start the app, open http://localhost:5173/ in a browser, and see the list of tasks.
-
+```bash
 npm run dev
+
+**Usage**
+Log Food Items: Use the app’s interface to add new food items and manage existing ones.
+Receive Notifications: Monitor notifications for upcoming expiration dates to manage your food inventory effectively.
+Generate Meal Plans: Access the meal planning feature to get recipe suggestions based on your current food items.
+
+**Challenges**
+Switching from Python to TypeScript: Transitioning from Python's dynamic nature to TypeScript's static typing involved a learning curve and required adjustments to our development practices.
+First-time Usage of Convex: Integrating Convex for the first time required overcoming initial setup challenges and learning its functionalities for effective data management.
+
+**License**
+This project is licensed under the MIT License - see the LICENSE file for details.
+
 
