@@ -12,7 +12,7 @@ export const insertFoodItem = mutation(async ({ db }, { userId,email, itemName, 
 
     // Verify that the userId matches Convex ID format
     // eslint-disable-next-line no-undef
-    const user = await db.get("users", email);
+    const user = await db.get(userId);
 
     if (!user) {
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
