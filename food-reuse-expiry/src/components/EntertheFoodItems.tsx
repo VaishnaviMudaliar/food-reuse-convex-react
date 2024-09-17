@@ -3,11 +3,13 @@ import { useMutation } from "convex/react"; // Import the useMutation hook from 
 import { api } from "../../convex/_generated/api";
 import "./EntertheFoodItems.css";
 
+
 interface FoodEntryFormProps {
   userId: string;
+  email: string;
 }
 
-const FoodEntryForm: React.FC<FoodEntryFormProps> = ({ userId }) => {
+const FoodEntryForm: React.FC<FoodEntryFormProps> = ({ userId , email }) => {
   const [item_name, setItemName] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [expiration_date, setExpirationDate] = useState("");
@@ -16,9 +18,11 @@ const FoodEntryForm: React.FC<FoodEntryFormProps> = ({ userId }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  const insertFoodItem = useMutation(api.mutations.insertFoodItem);
-  const updateFoodItem = useMutation(api.mutations.updateFoodItem);
-  const removeFoodItem = useMutation(api.mutations.removeFoodItem);
+  const insertFoodItem = useMutation(api.mutations.insertFoodItem.insertFoodItem);
+  const updateFoodItem = useMutation(api.mutations.updateFoodItem.updateFoodItem);
+  const removeFoodItem = useMutation(api.mutations.removeFoodItem.removeFoodItem);
+
+  
 
   // Automatically set 'date_logged' to today's date when the form loads
   useEffect(() => {
@@ -32,6 +36,7 @@ const FoodEntryForm: React.FC<FoodEntryFormProps> = ({ userId }) => {
     try {
       await insertFoodItem({
         userId,
+        email,
         itemName: item_name,
         quantity,
         expirationDate: expiration_date,
@@ -45,6 +50,7 @@ const FoodEntryForm: React.FC<FoodEntryFormProps> = ({ userId }) => {
       setDateLogged(""); // You can reset this or leave it as the current date
       setErrorMessage("");
     } catch (error) {
+      
       console.error("Failed to insert food item:", error);
       setErrorMessage("Failed to insert food item. Please try again.");
     }

@@ -1,33 +1,35 @@
-// src/mutations/foodItems.ts
-import { mutation } from "../_generated/server";
-import { v } from "convex/values";
+import { mutation } from '../_generated/server';
 
-export const insertFoodItem = mutation({
-  args: {
-    userId: v.string(),
-    itemName: v.string(),
-    quantity: v.number(),
-    expirationDate: v.string(), // Ensure format is "YYYY-MM-DD"
-    dateLogged: v.string(), // Ensure format is "YYYY-MM-DD"
-  },
-  handler: async (ctx, args) => {
-    const { userId, itemName, quantity, expirationDate, dateLogged } = args;
+export const insertFoodItem = mutation(async ({ db }, { userId,email, itemName, quantity, expirationDate, dateLogged, category }) => {
+  try {
+    console.log("Received userId:", userId);
+    console.log("Type of userId:", typeof userId);
+    console.log("Length of userId:", userId.length);
 
-    // Verify user existence
-    const user = await ctx.db.get("Users", userId);
+    // Validate and format expirationDate and dateLogged
+    const formattedExpirationDate = expirationDate; // Ensure format "YYYY-MM-DD"
+    const formattedDateLogged = dateLogged; // Ensure format "YYYY-MM-DD"
+
+    // Verify that the userId matches Convex ID format
+    // eslint-disable-next-line no-undef
+    const user = await db.get("users", email);
+
     if (!user) {
-      throw new Error(`User with ID ${userId} does not exist.`);
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      throw new Error("User with ID ${userId} does not exist.");
     }
 
-    // Insert new food item
-    const itemId = await ctx.db.insert("Food_items", {
-      user_id: userId,
+    const itemId = await db.table("Food_items").insert({
+      user_id: userId, // Ensure user_id is directly used here
       item_name: itemName,
-      quantity,
-      expiration_date: expirationDate,
-      date_logged: dateLogged,
+      quantity: quantity,
+      expiration_date: formattedExpirationDate,
+      date_logged: formattedDateLogged,
     });
 
     return itemId;
-  },
+  } catch (error) {
+    console.error("Error inserting food item:", error);
+    throw new Error("Failed to insert food item.");
+  }
 });

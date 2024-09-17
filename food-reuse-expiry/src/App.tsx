@@ -35,7 +35,7 @@ export default function App() {
          
          
          
-          <FoodEntryForm userId={(user ?? {})._id!} />  
+          <FoodEntryForm userId={(user ?? {})._id! } email = {(user ?? {}).email!} />  
         </Authenticated>
         <Unauthenticated>
           <SignInForm />
