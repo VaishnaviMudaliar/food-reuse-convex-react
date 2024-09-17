@@ -1,25 +1,26 @@
 import { mutation } from '../_generated/server';
 
-export const removeFoodItemByName = mutation(async ({ db }, { user_id, item_name }) => {
+export const updateFoodItem = mutation(async ({ db }, { userId, itemName, quantity, expirationDate, dateLogged }) => {
   try {
-    // Find the items to remove by user_id and item_name
-    const itemsToRemove = await db.table("Food_items")
-      .query()
-      .filter(item => item.user_id === user_id && item.item_name === item_name)
-      .run();
+    // Find the item by user_id and item_name
+    const item = await db.query("Food_items")
+      .filter(q => q.and(q.eq(q.field("user_id"), userId), q.eq(q.field("item_name"), itemName)))
+      .first();
 
-    if (itemsToRemove.length === 0) {
-      throw new Error("No matching item found.");
+    if (!item) {
+      throw new Error(`Item "${itemName}" for user "${userId}" not found.`);
     }
 
-    // Remove all matching items
-    await Promise.all(itemsToRemove.map(item => 
-      db.table("Food_items").delete(item._id)
-    ));
+    // Update the item with the new values
+    await db.patch(item._id, {
+      quantity,
+      expiration_date: expirationDate,
+      date_logged: dateLogged,
+    });
 
-    return "Food items removed successfully.";
+    return "Food item updated successfully.";
   } catch (error) {
-    console.error("Error removing food item:", error);
-    throw new Error("Failed to remove food items.");
+    console.error("Error updating food item:", error);
+    throw new Error("Failed to update food item.");
   }
 });
