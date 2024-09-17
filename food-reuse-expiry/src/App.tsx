@@ -22,7 +22,7 @@ export default function App() {
         <Authenticated>
           {/* <ChatIntro />
           <Chat viewer={(user ?? {})._id!} /> */}
-          <WelcomePage
+          {/* <WelcomePage
               title="Food Wastage"
               recipeLink="/recipes"
               homeLink="/"
@@ -30,12 +30,12 @@ export default function App() {
               trackExpiryLink="/track-expiry"
               loginLink="/login"
               signupLink="/signup"
-            />
+            /> */}
           
          
          
          
-          {/* <FoodEntryForm userId={(user ?? {})._id!} />  // Adding the form here for authenticated users */}
+          <FoodEntryForm userId={(user ?? {})._id!} />  
         </Authenticated>
         <Unauthenticated>
           <SignInForm />

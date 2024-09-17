@@ -1,34 +1,33 @@
-import { mutation } from '../_generated/server';
+// src/mutations/foodItems.ts
+import { mutation } from "../_generated/server";
+import { v } from "convex/values";
 
-export const insertFoodItem = mutation(async ({ db }, { userId, itemName, quantity, expirationDate, dateLogged, category }) => {
-  try {
-    console.log("Received userId:", userId);
-    console.log("Type of userId:", typeof userId);
-    console.log("Length of userId:", userId.length);
+export const insertFoodItem = mutation({
+  args: {
+    userId: v.string(),
+    itemName: v.string(),
+    quantity: v.number(),
+    expirationDate: v.string(), // Ensure format is "YYYY-MM-DD"
+    dateLogged: v.string(), // Ensure format is "YYYY-MM-DD"
+  },
+  handler: async (ctx, args) => {
+    const { userId, itemName, quantity, expirationDate, dateLogged } = args;
 
-    // Validate and format expirationDate and dateLogged
-    const formattedExpirationDate = expirationDate; // Ensure format "YYYY-MM-DD"
-    const formattedDateLogged = dateLogged; // Ensure format "YYYY-MM-DD"
-
-    // Verify that the userId matches Convex ID format
-    const user = await db.get("Users", userId);
-
+    // Verify user existence
+    const user = await ctx.db.get("Users", userId);
     if (!user) {
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       throw new Error(`User with ID ${userId} does not exist.`);
     }
 
-    const itemId = await db.table("Food_items").insert({
-      user_id: userId, // Ensure user_id is directly used here
+    // Insert new food item
+    const itemId = await ctx.db.insert("Food_items", {
+      user_id: userId,
       item_name: itemName,
-      quantity: quantity,
-      expiration_date: formattedExpirationDate,
-      date_logged: formattedDateLogged,
+      quantity,
+      expiration_date: expirationDate,
+      date_logged: dateLogged,
     });
 
     return itemId;
-  } catch (error) {
-    console.error("Error inserting food item:", error);
-    throw new Error("Failed to insert food item.");
-  }
+  },
 });
