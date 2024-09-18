@@ -55,9 +55,9 @@ const WelcomePage: React.FC<WelcomePageProps> = ({
           <div className="text-content">
             <h1>{title}</h1>
             <div className='page-buttons'>
-            <a className="enter-food-item" href={recipeLink}>
+            <a className="enter-food-item" href= "/enter-food">
               <img className  = 'button-image' src={RecipesImage} alt="icon1"  onClick={handleRecipe}/>Enter Food Items</a>
-            <a className="generate-meal-plans" href={recipeLink}>
+            <a className="generate-meal-plans" href= "/generate-meal">
               <img  className  = 'button-image' src={MealPlanImage} alt="icon2"/>Generate Meal Plans</a>
             </div>
             

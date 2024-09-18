@@ -1,0 +1,26 @@
+.expiring-items-page {
+    padding: 20px;
+  }
+  
+  .expiring-items-page h1 {
+    margin-bottom: 20px;
+  }
+  
+  .expiring-items-page table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .expiring-items-page table, th, td {
+    border: 1px solid #ddd;
+  }
+  
+  .expiring-items-page th, td {
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .expiring-items-page th {
+    background-color: #000;
+  }
+  

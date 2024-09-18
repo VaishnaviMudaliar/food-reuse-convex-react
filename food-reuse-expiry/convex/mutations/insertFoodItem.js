@@ -1,6 +1,6 @@
 import { mutation } from '../_generated/server';
 
-export const insertFoodItem = mutation(async ({ db }, { userId,email, itemName, quantity, expirationDate, dateLogged, category }) => {
+export const insertFoodItem = mutation(async ({ db }, { userId, itemName, quantity, expirationDate, dateLogged }) => {
   try {
     console.log("Received userId:", userId);
     console.log("Type of userId:", typeof userId);

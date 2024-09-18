@@ -6,6 +6,13 @@
     },
     {
       "path": "./tsconfig.node.json"
+    },
+    
+  ],
+  
+    "compilerOptions": {
+      "moduleResolution": "node",
+      "esModuleInterop": true,
+      "allowJs": true
     }
-  ]
 }

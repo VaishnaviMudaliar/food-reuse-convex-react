@@ -21,6 +21,7 @@ const FoodEntryForm: React.FC<FoodEntryFormProps> = ({ userId , email }) => {
   const insertFoodItem = useMutation(api.mutations.insertFoodItem.insertFoodItem);
   const updateFoodItem = useMutation(api.mutations.updateFoodItem.updateFoodItem);
   const removeFoodItem = useMutation(api.mutations.removeFoodItem.removeFoodItem);
+  const checkNearingExpiryItems = useMutation(api.mutations.checkNearingExpiryItems.checkNearingExpiryItems);
 
   
 
@@ -42,6 +43,12 @@ const FoodEntryForm: React.FC<FoodEntryFormProps> = ({ userId , email }) => {
         expirationDate: expiration_date,
         dateLogged: date_logged,
       });
+
+      // Check for items nearing expiration
+        const nearingExpiryItems = await checkNearingExpiryItems();
+        if (nearingExpiryItems.length > 0) {
+          console.log("Items nearing expiration:", nearingExpiryItems);
+        }
 
       setSuccessMessage("Food item inserted successfully!");
       setItemName("");

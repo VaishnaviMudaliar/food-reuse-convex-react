@@ -18,7 +18,10 @@ interface FoodListProps {
 
 const FoodList: React.FC<FoodListProps> = ({ userId }) => {
   // Use the Convex query to retrieve food items
-  const foodItems = useQuery(api.getFoodItems:getFoodItems, {userId});
+  // The query name is the same as the query key in the Convex API
+  // userId shows error
+  const foodItems = useQuery(api.queries.getFoodItems.getFoodItems, userId);
+  
 
   if (!foodItems) {
     return <div>Loading food items...</div>;

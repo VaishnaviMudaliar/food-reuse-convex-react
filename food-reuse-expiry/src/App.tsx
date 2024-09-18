@@ -7,6 +7,9 @@ import FoodEntryForm from "@/components/EntertheFoodItems";
 import WelcomePage from "./components/welcomePage";
 import { Authenticated, Unauthenticated, useQuery } from "convex/react";
 import { api } from "../convex/_generated/api";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ExpiringItemsPage from "./components/expiringItems";
+import About from "./components/About";
 
 export default function App() {
   const user = useQuery(api.users.viewer);
@@ -31,11 +34,28 @@ export default function App() {
               loginLink="/login"
               signupLink="/signup"
             /> */}
+            <Router>
+      <Routes>
+        <Route path="/" element={<WelcomePage
+              title="Food Wastage"
+              recipeLink="/recipes"
+              homeLink="/"
+              aboutLink="/about"
+              trackExpiryLink="/track-expiry"
+              loginLink="/login"
+              signupLink="/signup"
+            />} />
+        <Route path="/expiring-items" element={<ExpiringItemsPage />} />
+        <Route path="/enter-food" element={<FoodEntryForm userId={(user ?? {})._id! } email = {(user ?? {}).email!} />} />
+        <Route path="/about" element={<About />} />
+        {/* Other routes */}
+      </Routes>
+    </Router>
           
          
          
          
-          <FoodEntryForm userId={(user ?? {})._id! } email = {(user ?? {}).email!} />  
+            
         </Authenticated>
         <Unauthenticated>
           <SignInForm />
